@@ -35,5 +35,5 @@ for k in conjunto:
     matriz[m][1]=l
     m=m+1
     l=0
-    
-print(matriz)
+for elemento in matriz:   
+    print(elemento[0]+','+str(elemento[1]))

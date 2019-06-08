@@ -10,36 +10,37 @@
 ##
 import csv
 lista=[]
-lista_1=[]
 data_lab_03=open('data.csv')
 separador = "\t"
 for fila in data_lab_03:
-    columna_0 = fila.split(separador)[0].strip()
-    lista.append(columna_0)
-data_lab_03.close()
-lista.sort()
-print(lista)
-conjunto1 = set(lista)
-conjunto=list(conjunto1)
-conjunto.sort()
-print(conjunto)
-print(len(lista))
-matriz=[]
-for i in range(len(conjunto)):
-    matriz.append([])
-    for j in range(2):
-        matriz[i].append(None)
-print(matriz[0][0])
-l=0
-m=0
-for k in conjunto:
-    for i in lista:
-        print(k+'-'+i)
-        if i==k:
-            l=1+l
-    matriz[m][0]=k
-    matriz[m][1]=l
-    m=m+1
-    l=0
+    fila_actual=fila.split(separador)
+    fecha_actual=fila_actual[2].split('-')
+    fecha_formato=[fecha_actual[2],fecha_actual[1],fecha_actual[0]]
+    fila_actual[2]="/".join(fecha_formato)
     
-print(matriz)
+    columna_4=fila_actual[3].split(',')
+    fila_actual[3]=";".join(columna_4)
+    
+    columna_5=fila_actual[4].split(',')
+    fila_actual[4]=";".join(columna_5)
+    
+    lista.append(",".join(fila_actual))
+data_lab_03.close()
+data_lab_03=lista
+data_lab_03 = [z.replace('\n', '') for z in data_lab_03]
+data_lab_03 = [z.split(',') for z in data_lab_03]
+columna_0 =[z[0] for z in data_lab_03[0:]]
+letras = []
+for letra in columna_0:    
+    if letra not in letras:
+        letras.append(letra)
+letras.sort()
+#letras
+for letra in letras:
+    suma = 0
+    for fila in data_lab_03:
+        columna_0 = fila[0]
+        columna_1 = fila[1]
+        if letra == columna_0:
+            suma = suma + int(columna_1)
+    print(str(letra)+','+str(suma))

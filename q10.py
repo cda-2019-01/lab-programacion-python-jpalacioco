@@ -15,11 +15,29 @@
 ## jjj,18
 ##
 ## import csv
-data_lab_06=open('data2.csv', 'r').readlines()
-data_lab_06 = [z.replace('\n', '') for z in data_lab_06]
-data_lab_06 = [z.split(',') for z in data_lab_06]
-#data_lab_06
-columna_4 =[z[4] for z in data_lab_06[0:]]
+import csv
+lista=[]
+data_lab_03=open('data.csv')
+separador = "\t"
+for fila in data_lab_03:
+    fila_actual=fila.split(separador)
+    fecha_actual=fila_actual[2].split('-')
+    fecha_formato=[fecha_actual[2],fecha_actual[1],fecha_actual[0]]
+    fila_actual[2]="/".join(fecha_formato)
+    
+    columna_4=fila_actual[3].split(',')
+    fila_actual[3]=";".join(columna_4)
+    
+    columna_5=fila_actual[4].split(',')
+    fila_actual[4]=";".join(columna_5)
+    
+    lista.append(",".join(fila_actual))
+data_lab_03.close()
+data_lab_03=lista
+data_lab_03 = [z.replace('\n', '') for z in data_lab_03]
+data_lab_03 = [z.split(',') for z in data_lab_03]
+#data_lab_03
+columna_4 =[z[4] for z in data_lab_03[0:]]
 columna_4
 #Split
 claves = []
@@ -32,7 +50,7 @@ for fila in columna_4:
         if lista_elemento not in claves:
             claves.append(lista_elemento)
 claves.sort()
-#print(claves)
+            #print(claves)
 #
 respuesta_csv = []
 for clave in claves:
@@ -43,7 +61,7 @@ for clave in claves:
             numero_aux = elemento.split(':')[1]
             if clave == clave_aux:
                 contador_numeros +=1 # equivale a realizar la operación matemática
-    print(clave+',',str(contador_numeros))
+    print(clave+','+str(contador_numeros))
     respuesta_csv.append([clave, contador_numeros])
 import csv
 with open('q10.csv', 'w') as f:
